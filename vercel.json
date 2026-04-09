@@ -1,8 +1,14 @@
 {
-    "buildCommand": "pip install -r requirements.txt",
+    "buildCommand": "pip install --no-cache-dir -r requirements.txt",
     "devCommand": "python -m flask --app webapp.app run --port 3000",
     "env": {
         "FLASK_ENV": "production"
+    },
+    "functions": {
+        "api/index.py": {
+            "maxDuration": 60,
+            "memory": 3008
+        }
     },
     "routes": [
         {
