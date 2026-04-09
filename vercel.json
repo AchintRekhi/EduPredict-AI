@@ -1,0 +1,17 @@
+{
+    "buildCommand": "pip install -r requirements.txt",
+    "devCommand": "python -m flask --app webapp.app run --port 3000",
+    "env": {
+        "FLASK_ENV": "production"
+    },
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/api/index.py"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.py"
+        }
+    ]
+}
