@@ -85,8 +85,4 @@ Then open **http://localhost:5000** in your browser.
 - **Classification**: Accuracy, Precision, Recall, F1-Score, Confusion Matrix, PR-AUC
 - **Regression**: MAE, RMSE, R² Score
 
----
 
-## 👥 Team
-
-COMP-258 Neural Networks — Group 2 Final Project
