@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduPredict AI — Student Performance Predictor</title>
+    <meta name="description" content="Predict student GPA and first-year persistence using Neural Networks and Random Forest models trained on real academic data." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+    <!-- ═══════════════════ FLOATING PARTICLES ═══════════════════ -->
+    <div class="particles" id="particles" aria-hidden="true"></div>
+
+    <!-- ═══════════════════ HERO SECTION ═══════════════════ -->
+    <header class="hero" id="hero">
+        <div class="hero-badge">🧠 Neural Network + Random Forest</div>
+        <h1 class="hero-title">
+            <span class="hero-accent">Edu</span>Predict<span class="hero-dot">.</span>AI
+        </h1>
+        <p class="hero-subtitle">
+            Predict student academic outcomes using machine learning models trained on real institutional data.
+            Forecast GPA, persistence, and improvement — all in one place.
+        </p>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number" data-count="1437">0</span>
+                <span class="stat-label">Students Trained On</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-count="5">0</span>
+                <span class="stat-label">ML Models</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-count="3">0</span>
+                <span class="stat-label">Prediction Types</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ TAB NAVIGATION ═══════════════════ -->
+    <nav class="tabs-nav" id="tabs-nav">
+        <button class="tab-btn active" data-tab="persistence" id="tab-btn-persistence">
+            <span class="tab-icon">🎓</span>
+            <span class="tab-text">Persistence</span>
+        </button>
+        <button class="tab-btn" data-tab="gpa" id="tab-btn-gpa">
+            <span class="tab-icon">📊</span>
+            <span class="tab-text">GPA Predictor</span>
+        </button>
+        <button class="tab-btn" data-tab="improvement" id="tab-btn-improvement">
+            <span class="tab-icon">📈</span>
+            <span class="tab-text">GPA Improvement</span>
+        </button>
+    </nav>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main class="main-content">
+
+        <!-- ─── TAB 1: PERSISTENCE ─── -->
+        <section class="tab-panel active" id="panel-persistence">
+            <div class="panel-header">
+                <h2>First Year Persistence Predictor</h2>
+                <p>Will the student continue into year two? Enter their academic profile below.</p>
+            </div>
+
+            <form class="prediction-form" id="form-persistence">
+                <div class="form-grid persistence-grid">
+                    <!-- Numeric inputs -->
+                    <div class="form-group">
+                        <label for="p-first-gpa">First Term GPA</label>
+                        <input type="number" id="p-first-gpa" name="First_Term_Gpa" step="0.01" min="0" max="4.5" placeholder="e.g. 3.2" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="p-second-gpa">Second Term GPA</label>
+                        <input type="number" id="p-second-gpa" name="Second_Term_Gpa" step="0.01" min="0" max="4.5" placeholder="e.g. 2.8" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="p-hs-mark">High School Avg. Mark</label>
+                        <input type="number" id="p-hs-mark" name="High_School_Average_Mark" step="0.01" min="0" max="100" placeholder="e.g. 78.5" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="p-math">Math Score</label>
+                        <input type="number" id="p-math" name="Math_Score" step="1" min="0" max="100" placeholder="e.g. 42" required />
+                    </div>
+
+                    <!-- Dropdowns -->
+                    <div class="form-group">
+                        <label for="p-english">English Grade</label>
+                        <select id="p-english" name="English_Grade" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Lowest</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9 — Highest</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-age">Age Group</label>
+                        <select id="p-age" name="Age_Group" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Under 20</option>
+                            <option value="2">2 — 20-25</option>
+                            <option value="3">3 — Over 25</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-prev-edu">Previous Education</label>
+                        <select id="p-prev-edu" name="Previous_Education" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — High School</option>
+                            <option value="2">2 — College / University</option>
+                            <option value="3">3 — Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-language">First Language</label>
+                        <select id="p-language" name="First_Language" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — English</option>
+                            <option value="2">2 — French</option>
+                            <option value="3">3 — Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-funding">Funding</label>
+                        <select id="p-funding" name="Funding" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — OSAP</option>
+                            <option value="2">2 — Self-funded</option>
+                            <option value="3">3 — Employer</option>
+                            <option value="4">4 — Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-gender">Gender</label>
+                        <select id="p-gender" name="Gender" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Female</option>
+                            <option value="2">2 — Male</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-fasttrack">Fast Track</label>
+                        <select id="p-fasttrack" name="FastTrack" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Yes</option>
+                            <option value="2">2 — No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-coop">Co-op</label>
+                        <select id="p-coop" name="Coop" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Yes</option>
+                            <option value="2">2 — No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="p-residency">Residency</label>
+                        <select id="p-residency" name="Residency" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1 — Domestic</option>
+                            <option value="2">2 — International</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-persistence">
+                    <span class="btn-text">Predict Persistence</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+            </form>
+
+            <!-- Results -->
+            <div class="results-container hidden" id="results-persistence">
+                <h3 class="results-title">Prediction Results</h3>
+                <div class="results-grid">
+                    <div class="result-card nn-card" id="result-persistence-nn">
+                        <div class="result-badge">Neural Network</div>
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 120 120">
+                                <circle class="gauge-bg" cx="60" cy="60" r="50" />
+                                <circle class="gauge-fill" cx="60" cy="60" r="50" id="gauge-nn" />
+                            </svg>
+                            <div class="gauge-value" id="gauge-nn-value">0%</div>
+                        </div>
+                        <div class="result-label" id="label-nn">—</div>
+                    </div>
+                    <div class="result-card rf-card" id="result-persistence-rf">
+                        <div class="result-badge">Random Forest</div>
+                        <div class="gauge-container">
+                            <svg class="gauge" viewBox="0 0 120 120">
+                                <circle class="gauge-bg" cx="60" cy="60" r="50" />
+                                <circle class="gauge-fill" cx="60" cy="60" r="50" id="gauge-rf" />
+                            </svg>
+                            <div class="gauge-value" id="gauge-rf-value">0%</div>
+                        </div>
+                        <div class="result-label" id="label-rf">—</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── TAB 2: GPA PREDICTOR ─── -->
+        <section class="tab-panel" id="panel-gpa">
+            <div class="panel-header">
+                <h2>Second Term GPA Predictor</h2>
+                <p>Estimate a student's second-term GPA from their first-term performance and high school average.</p>
+            </div>
+
+            <form class="prediction-form" id="form-gpa">
+                <div class="form-grid gpa-grid">
+                    <div class="form-group">
+                        <label for="g-first-gpa">First Term GPA</label>
+                        <input type="number" id="g-first-gpa" name="First_Term_Gpa" step="0.01" min="0" max="4.5" placeholder="e.g. 3.2" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="g-hs-mark">High School Avg. Mark</label>
+                        <input type="number" id="g-hs-mark" name="High_School_Average_Mark" step="0.01" min="0" max="100" placeholder="e.g. 78.5" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-gpa">
+                    <span class="btn-text">Predict GPA</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+            </form>
+
+            <div class="results-container hidden" id="results-gpa">
+                <h3 class="results-title">Predicted Second Term GPA</h3>
+                <div class="results-grid">
+                    <div class="result-card nn-card">
+                        <div class="result-badge">Neural Network</div>
+                        <div class="gpa-display" id="gpa-nn-value">—</div>
+                        <div class="gpa-bar-container">
+                            <div class="gpa-bar" id="gpa-nn-bar"></div>
+                        </div>
+                        <div class="gpa-scale">
+                            <span>0.0</span><span>4.5</span>
+                        </div>
+                    </div>
+                    <div class="result-card rf-card">
+                        <div class="result-badge">Random Forest</div>
+                        <div class="gpa-display" id="gpa-rf-value">—</div>
+                        <div class="gpa-bar-container">
+                            <div class="gpa-bar" id="gpa-rf-bar"></div>
+                        </div>
+                        <div class="gpa-scale">
+                            <span>0.0</span><span>4.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── TAB 3: GPA IMPROVEMENT ─── -->
+        <section class="tab-panel" id="panel-improvement">
+            <div class="panel-header">
+                <h2>GPA Improvement Predictor</h2>
+                <p>Predict how much a student's GPA will change between their first and second term.</p>
+            </div>
+
+            <form class="prediction-form" id="form-improvement">
+                <div class="form-grid improvement-grid">
+                    <div class="form-group">
+                        <label for="i-hs-mark">High School Avg. Mark</label>
+                        <input type="number" id="i-hs-mark" name="High_School_Average_Mark" step="0.01" min="0" max="100" placeholder="e.g. 78.5" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="i-first-gpa">First Term GPA</label>
+                        <input type="number" id="i-first-gpa" name="First_Term_Gpa" step="0.01" min="0" max="4.5" placeholder="e.g. 2.8" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="i-second-gpa">Second Term GPA</label>
+                        <input type="number" id="i-second-gpa" name="Second_Term_Gpa" step="0.01" min="0" max="4.5" placeholder="e.g. 3.1" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-improvement">
+                    <span class="btn-text">Predict Improvement</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+            </form>
+
+            <div class="results-container hidden" id="results-improvement">
+                <h3 class="results-title">Predicted GPA Improvement</h3>
+                <div class="results-grid single">
+                    <div class="result-card improvement-card">
+                        <div class="result-badge">Neural Network</div>
+                        <div class="improvement-display" id="improvement-value">—</div>
+                        <div class="improvement-caption" id="improvement-caption">Change from 1st to 2nd term</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="site-footer">
+        <p>COMP-258 Neural Networks — Group 2 Final Project</p>
+        <p class="footer-sub">Built with TensorFlow, scikit-learn, and Flask</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
