@@ -1,0 +1,15 @@
+📄 Input Features for GPA Prediction Models
+------------------------------------------
+
+🔷 Neural Network Model (v2)
+Used to predict Second Term GPA based on:
+- First_Term_Gpa
+- High_School_Average_Mark
+
+🔷 Random Forest Model (Tuned)
+Used to predict Second Term GPA based on:
+- First_Term_Gpa
+- High_School_Average_Mark
+
+Note: Both models are trained with identical inputs to maintain consistency for frontend prediction.
+These inputs should be collected from the user and passed as numeric values.

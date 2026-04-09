@@ -1,0 +1,26 @@
+# Input Fields for FirstYearPersistence Prediction (Frontend Integration)
+
+Below is the complete list of features required by both the Neural Network and Random Forest models.
+These fields must be collected from users in the frontend and passed to the prediction endpoint.
+
+NOTE:
+- All features are numerical/categorical.
+- The 'School' column is no longer used for modeling, but may still be included for UI completeness.
+- All values must be mapped correctly according to their encoding.
+
+List of Input Fields:
+
+- First_Term_Gpa
+- Second_Term_Gpa
+- First_Language
+- Funding
+- School
+- FastTrack
+- Coop
+- Residency
+- Gender
+- Previous_Education
+- Age_Group
+- High_School_Average_Mark
+- Math_Score
+- English_Grade
